@@ -1,0 +1,161 @@
+/** 
+    Wall.jack
+    represent the wall objects in the game
+    In level 3, blocks are viewed as movable walls
+*/
+class Wall {
+
+    field int wall_left;    // left edge of wall
+    field int wall_right;   // right edge of wall
+    field int wall_top;     // top edge of wall
+    field int wall_bottom;  // bottom edge of wall
+
+    field int x_velocity;   // x velocity of wall
+    field int y_velocity;   // y velocity of wall
+
+    /** Create an wall object */
+    constructor Wall new(int x1, int y1, int x2, int y2) {
+        let wall_left = x1;
+        let wall_right = x2;
+        let wall_top = y1;
+        let wall_bottom = y2;
+        let x_velocity = 0;
+        let y_velocity = 0;
+
+        do draw();
+        return this;
+    }
+
+    /** Create a block object */
+    constructor Wall new_block(int x1, int y1, int x2, int y2, int Vx, int Vy) {
+        let wall_left = x1;
+        let wall_right = x2;
+        let wall_top = y1;
+        let wall_bottom = y2;
+        let x_velocity = Vx;
+        let y_velocity = Vy;
+
+        do draw();
+        return this;
+    }
+
+    /** Dispose the wall object and release the memory */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draw the wall */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(wall_left, wall_top, wall_right, wall_bottom);
+        return;
+    }
+
+    /** Erase the wall with current position */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(wall_left, wall_top, wall_right, wall_bottom);
+        return;
+    }
+
+    /** Move the wall object */
+    method void move() {
+        do erase();
+        let wall_left = wall_left + x_velocity;
+        let wall_right = wall_right + x_velocity;
+        let wall_top = wall_top + y_velocity;
+        let wall_bottom = wall_bottom + y_velocity;
+        do draw();
+        return;
+    }
+
+    /** Getter method for wall_left */
+    method int get_x_left(){
+        return wall_left;
+    }
+
+    /** Getter method for wall_right */
+    method int get_x_right(){
+        return wall_right;
+    }
+
+    /** Getter method for wall_top */
+    method int get_y_top(){
+        return wall_top;
+    }
+
+    /** Getter method for wall_bottom */
+    method int get_y_bottom(){
+        return wall_bottom;
+    }
+
+    /** Getter method for x_velocity */
+    method int get_x_velocity() {
+        return x_velocity;
+    }
+
+    /** Getter method for y_velocity */
+    method int get_y_velocity() {
+        return y_velocity;
+    }
+
+    /** Setter method for x_velocity */
+    method void set_x_velocity(int new_Vx) {
+        let x_velocity = new_Vx;
+        return;
+    }
+
+    /** Setter method for x_velocity */
+    method void set_y_velocity(int new_Vy) {
+        let y_velocity = new_Vy;
+        return;
+    }
+
+    /** Check if the ball is inside this wall */
+    method boolean is_player_inside_me(Player player) {
+        var int player_left;
+        var int player_right;
+        var int player_top;
+        var int player_bottom;
+        var int player_x;
+        var int player_y;
+
+        var boolean right_wall_inside_player;
+        var boolean left_wall_inside_player;
+        var boolean top_wall_inside_player;
+        var boolean bottom_wall_inside_player;
+
+        var boolean player_x_between_wall;
+        var boolean player_y_between_wall;
+
+        var boolean hit_left;
+        var boolean hit_right;
+        var boolean hit_top;
+        var boolean hit_bottom;
+        
+        // Get the position of the player
+        // + 1 for more accurate collision detection
+        let player_left = player.getLeft() + 1;
+        let player_right = player.getRight() + 1;
+        let player_top = player.getTop() + 1;
+        let player_bottom = player.getBottom() + 1;
+        let player_x = player.get_x();
+        let player_y = player.get_y();
+
+        let right_wall_inside_player = (player_left = wall_right);
+        let left_wall_inside_player = (player_right = wall_left);
+        let top_wall_inside_player = (wall_top = player_bottom);
+        let bottom_wall_inside_player = (player_top = wall_bottom);
+        
+        let player_x_between_wall = (((wall_left < player_x) | (wall_left = player_x)) & ((player_x < wall_right) | (player_x = wall_right)));  // (wall_left <= player_x <= wall_right)
+        let player_y_between_wall = (((wall_top < player_y) | (wall_top = player_y))  & ((player_y < wall_bottom) | (player_y = wall_bottom))); // (wall_top <= player_y <= wall_bottom)
+        
+        let hit_left = (right_wall_inside_player & player_y_between_wall);
+        let hit_right = (left_wall_inside_player & player_y_between_wall);
+        let hit_top = (bottom_wall_inside_player & player_x_between_wall);
+        let hit_bottom = (top_wall_inside_player & player_x_between_wall);
+
+        return (hit_left | hit_right) | (hit_top | hit_bottom); 
+    }
+}

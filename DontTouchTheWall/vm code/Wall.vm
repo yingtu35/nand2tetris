@@ -1,0 +1,251 @@
+function Wall.new 0
+push constant 6
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 2
+pop this 1
+push argument 1
+pop this 2
+push argument 3
+pop this 3
+push constant 0
+pop this 4
+push constant 0
+pop this 5
+push pointer 0
+call Wall.draw 1
+pop temp 0
+push pointer 0
+return
+function Wall.new_block 0
+push constant 6
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 2
+pop this 1
+push argument 1
+pop this 2
+push argument 3
+pop this 3
+push argument 4
+pop this 4
+push argument 5
+pop this 5
+push pointer 0
+call Wall.draw 1
+pop temp 0
+push pointer 0
+return
+function Wall.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Wall.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+push this 1
+push this 3
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Wall.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+push this 1
+push this 3
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Wall.move 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Wall.erase 1
+pop temp 0
+push this 0
+push this 4
+add
+pop this 0
+push this 1
+push this 4
+add
+pop this 1
+push this 2
+push this 5
+add
+pop this 2
+push this 3
+push this 5
+add
+pop this 3
+push pointer 0
+call Wall.draw 1
+pop temp 0
+push constant 0
+return
+function Wall.get_x_left 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Wall.get_x_right 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Wall.get_y_top 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Wall.get_y_bottom 0
+push argument 0
+pop pointer 0
+push this 3
+return
+function Wall.get_x_velocity 0
+push argument 0
+pop pointer 0
+push this 4
+return
+function Wall.get_y_velocity 0
+push argument 0
+pop pointer 0
+push this 5
+return
+function Wall.set_x_velocity 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 4
+push constant 0
+return
+function Wall.set_y_velocity 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 5
+push constant 0
+return
+function Wall.is_player_inside_me 16
+push argument 0
+pop pointer 0
+push argument 1
+call Player.getLeft 1
+push constant 1
+add
+pop local 0
+push argument 1
+call Player.getRight 1
+push constant 1
+add
+pop local 1
+push argument 1
+call Player.getTop 1
+push constant 1
+add
+pop local 2
+push argument 1
+call Player.getBottom 1
+push constant 1
+add
+pop local 3
+push argument 1
+call Player.get_x 1
+pop local 4
+push argument 1
+call Player.get_y 1
+pop local 5
+push local 0
+push this 1
+eq
+pop local 6
+push local 1
+push this 0
+eq
+pop local 7
+push this 2
+push local 3
+eq
+pop local 8
+push local 2
+push this 3
+eq
+pop local 9
+push this 0
+push local 4
+lt
+push this 0
+push local 4
+eq
+or
+push local 4
+push this 1
+lt
+push local 4
+push this 1
+eq
+or
+and
+pop local 10
+push this 2
+push local 5
+lt
+push this 2
+push local 5
+eq
+or
+push local 5
+push this 3
+lt
+push local 5
+push this 3
+eq
+or
+and
+pop local 11
+push local 6
+push local 11
+and
+pop local 12
+push local 7
+push local 11
+and
+pop local 13
+push local 9
+push local 10
+and
+pop local 14
+push local 8
+push local 10
+and
+pop local 15
+push local 12
+push local 13
+or
+push local 14
+push local 15
+or
+or
+return

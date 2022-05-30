@@ -1,0 +1,119 @@
+/** 
+    Player.jack
+    represent the player character
+*/
+class Player {
+
+    field int x, y;   // center location of the player
+    field int radius; // radius of player 
+
+    /** Construct a new player with given location and radius */
+    constructor Player new(int Ax, int Ay, int Aradius) {
+        let x = Ax;
+        let y = Ay;
+        let radius = Aradius;
+        return this;
+    }
+
+    /** Dispose the object and release the memory */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Getter method for x */
+    method int get_x() {
+        return x;
+    }
+
+    /** Setter method for x */
+    method void set_x(int new_x) {
+        let x = new_x;
+        return;
+    }
+
+    /** Getter method for y */
+    method int get_y() {
+        return y;
+    }
+
+    /** Setter method for y */
+    method void set_y(int new_y) {
+        let y = new_y;
+        return;
+    }
+    
+    /** Get the player's left edge */
+    method int getLeft() {
+        return x - radius;
+    }
+
+    /** Get the player's right edge */
+    method int getRight() {
+        return x + radius;
+    }
+
+    /** Get the player's top edge */
+    method int getTop() {
+        return y - radius;
+    }
+
+    /** Get the player's bottom edge */
+    method int getBottom() {
+        return y + radius;
+    }
+
+    /** Draw the player with current position */
+    method void draw() {
+        do Screen.setColor(true);
+        do Screen.drawCircle(x, y, radius);
+        return;
+    }
+
+    /** Erase the player with current position */
+    method void erase() {
+        do Screen.setColor(false);
+        do Screen.drawCircle(x, y, radius);
+        return;
+    }
+
+    /** Move the player up by 1 pixel */
+    method void moveUp() {
+        if ((y - radius) > 0) {
+            do erase();
+            let y = y - 1;
+            do draw();
+        }
+        return;
+    }
+
+    /** Move the player down by 1 pixel */
+    method void moveDown() {
+        if ((y + radius) < 255) {
+            do erase();
+            let y = y + 1;
+            do draw();
+        }
+        return;
+    }
+
+    /** Move the player left by 1 pixel */
+    method void moveLeft() {
+        if ((x - radius) > 128) {
+            do erase();
+            let x = x - 1;
+            do draw();
+        }
+        return;
+    }
+
+    /** Move the player right by 1 pixel */
+    method void moveRight() {
+        if ((x + radius) < 511) {
+            do erase();
+            let x = x + 1;
+            do draw();
+        }
+        return;
+    }
+}

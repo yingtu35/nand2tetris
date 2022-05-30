@@ -1,0 +1,13 @@
+/** 
+    Main.jack
+    responsible for creating the game
+    Main.main() is always run when executing
+*/
+class Main {
+    function void main() {
+        var Game game;
+        let game = Game.new();
+        do game.dispose();
+        return;
+    }
+}
