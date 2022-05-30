@@ -25,13 +25,15 @@ If you find it hard to pass the game, maybe you can check the source file for so
 
 ## Some interesting features of the game
 An easy-to-read game panel beside the map to show useful information (current level, remaining time, etc)
-![feature1](./images/game_info.png)
+![game_info](https://user-images.githubusercontent.com/91551415/170979228-ab2419e4-f3c7-4621-954c-951eb2eedd3c.PNG)
 
 Touching the walls show a clear message of game over.
-![feature2](./images/game_over.png)
+
+![game_over](https://user-images.githubusercontent.com/91551415/170979242-f16e44e3-3f8b-48f9-8393-56af2e1e4e03.PNG)
 
 Congratulations! Well done.
-![feature3](./images/game_pass.png)
+
+![game_pass](https://user-images.githubusercontent.com/91551415/170979250-cd809bb4-d7eb-4141-bb68-59cc62a17f71.PNG)
 
 ## Aknowledgements
 https://github.com/N2Tstud3nt/nand2tetris-project09-Flappy-Bird  (for general game ideas)
