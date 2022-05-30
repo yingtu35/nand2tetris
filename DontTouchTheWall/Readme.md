@@ -21,7 +21,7 @@ If you find it hard to pass the game, maybe you can check the source file for so
 
 
 ## Video Demo
-([creating](https://youtu.be/7gZU4R8eAPM))
+(https://youtu.be/7gZU4R8eAPM)
 
 ## Some interesting features of the game
 An easy-to-read game panel beside the map to show useful information (current level, remaining time, etc)
