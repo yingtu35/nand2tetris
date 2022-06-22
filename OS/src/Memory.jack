@@ -1,0 +1,80 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+// codes created by danie
+
+/** Optimization of Memory.jack include implementing deframentation
+ */
+
+/**
+ * This library provides two services: direct access to the computer's main
+ * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
+ * consists of 32,768 words, each holding a 16-bit binary number.
+ */ 
+class Memory {
+
+    static Array ram;
+    static Array heap;
+    static int freeList;
+
+    /** Initializes the class. */
+    function void init() {
+        let ram = 0;
+
+        let heap = 2048;
+        let freeList = 2048;
+        let heap[0] = 0;     // next
+        let heap[1] = 14335; // length
+        return;
+    }
+
+    /** Returns the RAM value at the given address. */
+    function int peek(int address) {
+        let ram = address;
+        return ram[0];
+    }
+
+    /** Sets the RAM value at the given address to the given value. */
+    function void poke(int address, int value) {
+        let ram = address;
+        let ram[0] = value;
+        return;
+    }
+
+    /** Finds an available RAM block of the given size and returns
+     *  a reference to its base address. */
+    function int alloc(int size) {
+        var int addr;
+        // look for possible segment
+        let addr = freeList;
+        while ((heap[addr+1] < (size+2)) & ~(addr = 0)){
+            let addr = heap[addr];       
+        }
+        if (~(heap[addr+1] < (size+2))){
+            let heap[addr+1] = heap[addr+1] - (size+2); // change the length of this segment
+
+            let addr = addr + heap[addr+1] + 2; // arrange new address for new block
+            let heap[addr] = 0; // next for new block
+            let heap[addr+1] = size; // length for new block
+            return (addr + 2);
+        }
+        else{
+            // throw error (no space available)
+            return 24576;
+        }
+        return 0;
+    }
+
+    /** De-allocates the given object (cast as an array) by making
+     *  it available for future allocations. */
+    function void deAlloc(Array o) {
+        var int addr;
+        let addr = freeList;
+        while (~(heap[addr] = 0)){ // look for end of freeList
+            let addr = heap[addr];       
+        }
+        let heap[addr] = (o-2); // append object to the end of freeList
+        return;
+    }    
+}
