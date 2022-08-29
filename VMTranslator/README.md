@@ -20,7 +20,7 @@ write out the assembly code according to the given components.
 1. Download the source files in the src folder
 2. There are two ways you can use the VM Translator:
 	- Provide the VMTranslator with a single vm file.
-		- Open the command prompt, type "java VMTranslator Xxx.vm", where Xxx.asm is the file you wish to convert. Some files are provided in files folder.
+		- Open the command prompt, type "java VMTranslator Xxx.vm", where Xxx.asm is the file you wish to convert.
 		- The command should produce a Xxx.asm that includes the corresponding assembly code.
 	- Provide the VMTranslator with a folder of multiple vm files.
 		- Open the command prompt, type "java VMTranslator Xxx", where Xxx is the folder that contains vm files.

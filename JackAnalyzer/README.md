@@ -24,7 +24,7 @@ advancing the tokenizer exactly beyond the tokens.
 1. Download the source files in the src folder
 2. There are two ways you can use the Jack Analyzer:
 	- Provide the JackAnalyzer with a single vm file.
-		- Open the command prompt, type "java JackAnalyzer Xxx.jack", where Xxx.jack is the file you wish to analyze. Some files are provided in files folder.
+		- Open the command prompt, type "java JackAnalyzer Xxx.jack", where Xxx.jack is the file you wish to analyze.
 		- The command should produce a Xxx.xml that includes xml markup language.
 	- Provide the JackAnalyzer with a folder of multiple vm files.
 		- Open the command prompt, type "java JackAnalyzer Xxx", where Xxx is the folder that contains jack files.
